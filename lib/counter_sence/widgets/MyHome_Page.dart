@@ -1,8 +1,6 @@
-import 'dart:async';
-import 'package:block_architecture_pattern/blocs/counter_block.dart';
-import 'package:block_architecture_pattern/widgets/bloc_provider.dart';
+import 'package:block_architecture_pattern/bloc_provider.dart';
+import 'package:block_architecture_pattern/counter_sence/block/counter_block.dart';
 import 'package:flutter/material.dart';
-import 'package:block_architecture_pattern/blocs/counter_block.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -14,8 +12,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //
-
   @override
   Widget build(BuildContext context) {
     //
@@ -48,13 +44,17 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              counterBlock.incrementCounter.add(null);
+            },
             tooltip: 'Increment',
             child: Icon(Icons.add),
           ),
           SizedBox(width: 10.0),
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              counterBlock.decrementCounter.add(null);
+            },
             tooltip: 'Increment',
             child: Icon(Icons.remove),
           ),

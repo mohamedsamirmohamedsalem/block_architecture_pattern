@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:block_architecture_pattern/widgets/bloc_provider.dart';
+import 'package:block_architecture_pattern/bloc_provider.dart';
 
 class CounterBlock extends BlocBase {
   int _counter = 0;
@@ -11,24 +10,32 @@ class CounterBlock extends BlocBase {
   Stream<int> get counterOutbut => _counterController.stream;
   //
   StreamController<int> _incrementController = StreamController<int>();
-  Sink<int> get incrementInput => _incrementController.sink;
-  Stream<int> get incrementOutbut => _incrementController.stream;
+  Sink<int> get incrementCounter => _incrementController.sink;
   //
+  StreamController<int> _decrementController = StreamController<int>();
+  Sink<int> get decrementCounter => _decrementController.sink;
+  //
+  void _increment(data) {
+    _counter++;
+    counterInput.add(_counter);
+  }
+
+  void _decrement(data) {
+    _counter--;
+    counterInput.add(_counter);
+  }
 
   //constructor
   CounterBlock() {
     _counter = 0;
     _incrementController.stream.listen(_increment);
+    _decrementController.stream.listen(_decrement);
   }
 
   @override
   void dispose() {
     _counterController.close();
     _incrementController.close();
-  }
-
-  void _increment(data) {
-    _counter++;
-    counterInput.add(_counter);
+    _decrementController.close();
   }
 }
